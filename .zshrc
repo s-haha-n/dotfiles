@@ -169,3 +169,6 @@ alias bric='xrandr --verbose | grep -i brightness'
 # Shell integrations
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
+
+eval "$(dircolors -b ~/.dircolors)"
+alias ls='ls --color=auto'
