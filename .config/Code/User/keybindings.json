@@ -1,0 +1,42 @@
+// Place your key bindings in this file to override the defaults
+[
+  {
+    "key": "ctrl+,",
+    "command": "workbench.action.openApplicationSettingsJson"
+  },
+
+  // copilot focus
+  {
+    "key": "ctrl+q",
+    "command": "workbench.panel.chat.view.copilot.focus",
+    "when": "!viewLocation:panel"
+  },
+  {
+    "key": "ctrl+q",
+    "command": "workbench.action.focusActiveEditorGroup",
+    "when": "view == 'workbench.panel.chat.view.copilot'"
+  },
+
+  {
+    "key": "ctrl+s",
+    "command": "workbench.action.files.save"
+  },
+  {
+    "key": "ctrl+s",
+    "command": "-workbench.action.files.save"
+  },
+  {
+    "key": "shift+f12",
+    "command": "editor.action.referenceSearch.trigger",
+    "when": "editorHasReferenceProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
+  },
+  {
+    "key": "shift+f12",
+    "command": "-editor.action.referenceSearch.trigger",
+    "when": "editorHasReferenceProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
+  },
+  {
+    "key": "ctrl+5",
+    "command": "-workbench.action.focusFifthEditorGroup"
+  }
+]

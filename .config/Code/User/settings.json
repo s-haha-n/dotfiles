@@ -1,0 +1,81 @@
+// Place your settings in this file to overwrite the default settings
+{
+    "keyboard.dispatch": "keyCode",
+    "security.workspace.trust.untrustedFiles": "open",
+    "editor.tabSize": 2,
+    "editor.codeLens": false,
+    "editor.fontSize": 12,
+    "editor.lightbulb.enabled": "off",
+    "editor.minimap.enabled": false,
+    "editor.fontFamily": "JetBrains Mono, monospace",
+    "editor.fontLigatures": false,
+    "terminal.integrated.gpuAcceleration": "on",
+    "editor.smoothScrolling": true,
+    //"editor.occurrencesHighlight": "multiFile",
+    "search.seedOnFocus": true, // 
+    "editor.occurrencesHighlight": "off",
+    "editor.find.autoFindInSelection": "never",
+    "vim.hlsearch": true,
+    "vim.incsearch": true,
+    "vim.searchHighlightColor": "#ff0088",
+    "vim.searchMatchColor": "#ff0088",
+    "vim.visualstar": true,
+    // Vim Settings
+    "vim.statusBarColorControl": true,
+    "vim.useCtrlKeys": true, // This enables you to use Visual Block editing with Ctrl+V
+    "vim.leader": "<space>",
+    "vim.insertModeKeyBindings": [
+        {
+            "before": [
+                "j",
+                "k"
+            ],
+            "after": [
+                "<escape>"
+            ],
+        }
+    ],
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "<C-n>"
+            ],
+            "commands": [
+                ":nohl",
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "w"
+            ],
+            "commands": [
+                "workbench.action.files.save",
+            ]
+        }
+    ],
+    "vim.statusBarColors.normal": [
+        "#1791ff",
+        "#d1ff87"
+    ],
+    "vim.statusBarColors.insert": [
+        "#ffd90f",
+        "#FF3618"
+    ],
+    "workbench.colorCustomizations": {
+        "editor.findMatchBackground": "#FF4500",
+        "statusBar.background": "#1791ff",
+        "statusBar.noFolderBackground": "#1791ff",
+        "statusBar.debuggingBackground": "#1791ff",
+        "statusBar.foreground": "#d1ff87",
+        "statusBar.debuggingForeground": "#d1ff87"
+    },
+    "terminal.external.linuxExec": "alacritty",
+    "extensions.experimental.affinity": {
+        "asvetliakov.vscode-neovim": 1
+    },
+    //"workbench.iconTheme": "Monokai Pro Icons",
+    "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim",
+    "vscode-neovim.enableNeovim": true,
+    "vscode-neovim.afterInitConfig": []
+}
