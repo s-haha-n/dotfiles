@@ -1,5 +1,9 @@
 // Place your settings in this file to overwrite the default settings
 {
+    "extensions.experimental.affinity": {
+        "asvetliakov.vscode-neovim": 1
+    },
+
     "keyboard.dispatch": "keyCode",
     "security.workspace.trust.untrustedFiles": "open",
     "editor.tabSize": 2,
@@ -71,11 +75,9 @@
         "statusBar.debuggingForeground": "#d1ff87"
     },
     "terminal.external.linuxExec": "alacritty",
-    "extensions.experimental.affinity": {
-        "asvetliakov.vscode-neovim": 1
-    },
     //"workbench.iconTheme": "Monokai Pro Icons",
     "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim",
     "vscode-neovim.enableNeovim": true,
-    "vscode-neovim.afterInitConfig": []
+    "vscode-neovim.afterInitConfig": [],
+    "git.openRepositoryInParentFolders": "always"
 }

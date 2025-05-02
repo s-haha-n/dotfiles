@@ -97,10 +97,6 @@ eval "$(zoxide init bash)"
 # Created by `pipx` on 2024-11-27 18:36:52
 export PATH="$PATH:/home/haha/.local/bin"
 
-# cuda nvidia-utils still not working?
-export PATH=/opt/cuda/bin${PATH:+:${PATH}}
-export LD_LIBRARY_PATH=/opt/cuda/lib64
-
 # Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'  #makes it not case sensitive autocompl
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
@@ -120,6 +116,7 @@ alias l='ls -1 --color'
 alias lr='ls -1t --color'
 alias c='clear'
 alias vmod='vim ~/.vimrc'
+alias nvmod='nvim ~/.config/nvim/init.lua'
 alias zmod='vim ~/.zshrc'
 alias zsrc='source ~/.zshrc'
 alias amod='vim ~/.config/alacritty/alacritty.toml'
@@ -172,3 +169,7 @@ eval "$(zoxide init --cmd cd zsh)"
 
 eval "$(dircolors -b ~/.dircolors)"
 alias ls='ls --color=auto'
+
+# cuda nvidia-utils still not working?
+export PATH=/opt/cuda/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/opt/cuda/lib64
