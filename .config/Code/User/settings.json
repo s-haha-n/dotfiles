@@ -20,9 +20,10 @@
     "editor.occurrencesHighlight": "off",
     "editor.find.autoFindInSelection": "never",
     "vim.hlsearch": true,
-    "vim.incsearch": true,
-    "vim.searchHighlightColor": "#ff0088",
-    "vim.searchMatchColor": "#ff0088",
+    "vim.incsearch": false,
+    "vim.searchHighlightColor": "#ffffff",
+    "vim.searchMatchColor": "#0ff088",
+    "vim.easymotionIncSearchForegroundColor": "#ffffff",
     "vim.visualstar": true,
     // Vim Settings
     "vim.statusBarColorControl": true,
@@ -56,7 +57,15 @@
             "commands": [
                 "workbench.action.files.save",
             ]
-        }
+        },
+        {
+             "before": [
+                "/",
+            ],
+            "commands": [
+                "actions.find"
+            ]
+        },
     ],
     "vim.statusBarColors.normal": [
         "#1791ff",
@@ -74,10 +83,13 @@
         "statusBar.foreground": "#d1ff87",
         "statusBar.debuggingForeground": "#d1ff87"
     },
-    "terminal.external.linuxExec": "alacritty",
+    //"terminal.external.linuxExec": "alacritty",
     //"workbench.iconTheme": "Monokai Pro Icons",
     "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim",
     "vscode-neovim.enableNeovim": true,
     "vscode-neovim.afterInitConfig": [],
-    "git.openRepositoryInParentFolders": "always"
+    "git.openRepositoryInParentFolders": "always",
+    "workbench.activityBar.location": "top",
+    "search.searchEditor.focusResultsOnSearch": true,
+
 }

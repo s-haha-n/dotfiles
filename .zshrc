@@ -1,4 +1,3 @@
-
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
     print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
@@ -12,6 +11,43 @@ source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
+# Colors for the prompt (optional, but makes it readable)
+autoload -U colors && colors # Keep this early, it's needed for prompt colors
+
+# --- VCS Info Setup (Keep as is) ---
+autoload -Uz vcs_info # This needs to be available
+zstyle ':vcs_info:*' enable
+zstyle ':vcs_info:git:*' check-for-changes true
+zstyle ':vcs_info:git:*' stagedstr '%F{cyan}A%f' # Staged changes
+zstyle ':vcs_info:git:*' unstagedstr '%F{yellow}M%f' # Unstaged changes
+zstyle ':vcs_info:git:*' branchformat '%b' # Just the branch name
+zstyle ':vcs_info:git:*' formats '%F{green}(%b)%f%u%c' # (branch)unstaged_changes_staged_changes
+zstyle ':vcs_info:git:*' actionformats '%F{green}(%b|%a)%f%u%c' # (branch|action) for rebase/merge
+zstyle ':vcs_info:git:*' post-arg "(%F{red}??%f)" # If untracked files are found
+
+# 2. Add a hook to update vcs_info before each prompt populates the vcs_info_msg_0 variable
+precmd_vcs_info() { vcs_info; } # This defines the function
+autoload -Uz add-zsh-hook # This loads the add-zsh-hook utility (only needs to be called once)
+
+add-zsh-hook precmd precmd_vcs_info # This correctly registers the function to the hook
+
+
+# --- Custom Prompt Flag and Conditional Sourcing ---
+# Set this flag to 'true' to enable the custom, emoji-switching prompt.
+# Set it to 'false' (or comment out) to use the simple prompt defined below.
+ENABLE_CUSTOM_PROMPT_EMOJIS=true
+
+if [[ "$ENABLE_CUSTOM_PROMPT_EMOJIS" = true ]]; then
+  # Source the external prompt configuration file.
+  # We use ZDOTDIR or HOME to ensure it finds the file regardless of how Zsh is configured.
+  source "${ZDOTDIR:-$HOME}/.zsh/prompt.zsh"
+else
+  # Fallback PROMPT if the custom emoji prompt is disabled.
+  # This is your current simple prompt.
+  PROMPT='%F{#21d1ff}%~%f${vcs_info_msg_0_}
+%(?.%F{#e655b5}😺.%F{red}😿) %f'
+fi
+
 # Load a few important annexes, without Turbo
 # (this is currently required for annexes)
 zinit light-mode for \
@@ -19,47 +55,74 @@ zinit light-mode for \
     zdharma-continuum/zinit-annex-bin-gem-node \
     zdharma-continuum/zinit-annex-patch-dl \
     zdharma-continuum/zinit-annex-rust
-
 ### End of Zinit's installer chunk
-
+#
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 
 # Plugin history-search-multi-word loaded with investigating.
 zinit load zdharma-continuum/history-search-multi-word
 
 # Two regular plugins loaded without investigating.
-zinit light zdharma-continuum/fast-syntax-highlighting
+#zinit light zdharma-continuum/fast-syntax-highlighting
 
+# --- Fast Syntax Highlighting Configuration ---
+# Reset default styles to remove potential underlines
+# You'll need to re-add colors explicitly.
+# A common pattern is to make 'region' (current typing area) italic.
+
+# This is the key part for input highlighting
+# Example: Make command (builtin, command, path) italic,
+#           and the current region (what you're typing) italic gray
+# You might find 'region' is the one causing the underline
 # Add in zsh plugins
-#zinit light zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
 
 # Add in snippets - makes it so ur getting ohmyzsh without the load via url
-zinit snippet OMZL::git.zsh
 zinit snippet OMZP::git
 zinit snippet OMZP::sudo
 zinit snippet OMZP::archlinux
-zinit snippet OMZP::aws
-zinit snippet OMZP::kubectl
-zinit snippet OMZP::kubectx
 zinit snippet OMZP::command-not-found
 
-# Load completions
+# Load completions (compinit should be after all plugins that add completions)
 autoload -Uz compinit && compinit
 
 # replay all cached completions
 zinit cdreplay -q
 
-# custom prompt:
-#eval "$(oh-my-posh init zsh)"
-eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/zen.toml)"
+# Declare the variable
+#typeset -A ZSH_HIGHLIGHT_STYLES
+#
+## To differentiate aliases from other command types
+#ZSH_HIGHLIGHT_STYLES[alias]='fg=magenta,bold'
+#
+## To have paths colored instead of underlined
+##ZSH_HIGHLIGHT_STYLES[path]='fg=cyan'
+#ZSH_HIGHLIGHT_STYLES[path]='none'
+#
+## To disable highlighting of globbing expressions
+#ZSH_HIGHLIGHT_STYLES[globbing]='none'
+#
 
-# Key beindings
 # Enable vi mode
 bindkey -v
+
+# 2) (optional) show a visual cue in your prompt when you’re in NORMAL mode
+function zle-keymap-select {
+  if [[ $KEYMAP == vicmd ]]; then
+    RPS1="🅽 NORMAL"
+  else
+    RPS1=""
+  fi
+  zle reset-prompt
+}
+zle -N zle-keymap-select
+
+# 3) ensure your right-prompt is enabled
+setopt prompt_subst
+
 # Usefeul emacs key bindings retained with vi mode
 bindkey '^k' kill-line
 bindkey '^w' backward-kill-word
@@ -89,7 +152,6 @@ setopt sharehistory
 setopt hist_ignore_space
 setopt hist_ignore_all_dups
 setopt hist_save_no_dups
-setopt hist_ignore_dups
 setopt hist_find_no_dups
 
 eval "$(zoxide init bash)"
@@ -115,19 +177,22 @@ alias ll='ls -al --color'
 alias l='ls -1 --color'
 alias lr='ls -1t --color'
 alias c='clear'
-alias vmod='vim ~/.vimrc'
+alias vim='nvim'
+alias vmod='nvim ~/.vimrc'
 alias nvmod='nvim ~/.config/nvim/init.lua'
-alias zmod='vim ~/.zshrc'
+alias zmod='nvim ~/.zshrc'
+alias kmod='nvim ~/.config/kitty/kitty.conf'
 alias zsrc='source ~/.zshrc'
-alias amod='vim ~/.config/alacritty/alacritty.toml'
-alias tmod='vim ~/.config/tmux/tmux.conf'
+alias amod='nvim ~/.config/alacritty/alacritty.toml'
+alias tmod='nvim ~/.config/tmux/tmux.conf'
+alias imod='nvim ~/.config/i3/config'
 
 alias f2c='xclip -sel c <'
 alias packvc='apt-cache policy' #check version of package
 
 #My bashrc aliases:
 
-# pacman 
+# pacman
 alias up='sudo pacman -Syu'
 alias upy='yay -Syu'
 alias sync='sudo pacman -S'
@@ -135,13 +200,8 @@ alias sync='sudo pacman -S'
 alias grep='grep --color=auto'
 
 # Modifying configs
-alias bmod='vim ~/.bashrc'
+alias bmod='nvim ~/.bashrc'
 alias bsrc='source ~/.bashrc'
-alias zmod='vim ~/.zshrc'
-alias zsrc='source ~/.zshrc'
-alias vmod='vim ~/.vimrc'
-alias kmod='vim ~/.config/kitty/kitty.conf'
-alias amod='vim ~/.config/alacritty/alacritty.toml'
 alias rmod='vim ~/.config/rofi/config.rasi'
 
 alias omod='vim ~/.config/openbox/rc.xml'
@@ -173,3 +233,6 @@ alias ls='ls --color=auto'
 # cuda nvidia-utils still not working?
 export PATH=/opt/cuda/bin${PATH:+:${PATH}}
 export LD_LIBRARY_PATH=/opt/cuda/lib64
+
+export LD_LIBRARY_PATH=~/.local/share/Steam/steamapps/common/SteamVR/bin/linux64:$LD_LIBRARY_PATH
+#~/.steam/steam/steamapps/common/SteamVR/bin/linux64

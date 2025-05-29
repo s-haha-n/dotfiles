@@ -163,4 +163,4 @@ configuration {
 
 //@theme "/usr/share/rofi/themes/tokyonight.rasi"
 
-@theme "/usr/share/rofi/themes/mytokyonight.rasi"
+@theme "/usr/share/rofi/themes/tokyonight.rasi"
