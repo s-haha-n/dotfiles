@@ -77,5 +77,5 @@ add-zsh-hook precmd precmd_set_status_emoji
 # It uses the global variables set by the hook functions.
 
 						
-PROMPT='%F{#21d1ff}%~%f${vcs_info_msg_0_}${_MY_SUDO_PROMPT_INDICATOR}
+PROMPT='%F{#7DFFFF}%~%f${vcs_info_msg_0_}${_MY_SUDO_PROMPT_INDICATOR}
 ${_MY_PROMPT_STATUS_SYMBOL} %f'
