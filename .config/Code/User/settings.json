@@ -91,5 +91,6 @@
     "git.openRepositoryInParentFolders": "always",
     "workbench.activityBar.location": "top",
     "search.searchEditor.focusResultsOnSearch": true,
+    "editor.multiCursorModifier": "ctrlCmd",
 
 }

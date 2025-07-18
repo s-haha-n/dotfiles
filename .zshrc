@@ -7,6 +7,12 @@ export LD_LIBRARY_PATH=/opt/cuda/lib64
 export LD_LIBRARY_PATH=~/.local/share/Steam/steamapps/common/SteamVR/bin/linux64:$LD_LIBRARY_PATH
 #~/.steam/steam/steamapps/common/SteamVR/bin/linux64
 
+alias unreal='HOME="$HOME/Documents/unreal_sandbox" "$HOME/Documents/Linux_Unreal_Engine_5.5.4/Engine/Binaries/Linux/UnrealEditor"'
+
+
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
 export KEYTIMEOUT=1
 
 # Shell integrations
@@ -111,12 +117,13 @@ bindkey -v   # Enable vi mode
 bindkey -M menuselect '^M' .accept-line # Enter compl exec immediately
 bindkey '^r' fzf-history-widget
 
-bindkey "^h" backward-kill-word
+#bindkey "^h" backward-kill-word
+#bindkey '^w' kill-region
+bindkey "^w" backward-kill-word
 bindkey "^j" backward-word
 bindkey "^k" kill-line
 bindkey "^l" forward-word
 
-bindkey '^w' kill-region
 bindkey "^a" beginning-of-line
 bindkey "^e" end-of-line
 bindkey "^k" forward-word
@@ -165,4 +172,4 @@ source /home/haha/.local/share/zinit/plugins/zsh-users---zsh-syntax-highlighting
 (( ${+ZSH_HIGHLIGHT_STYLES} )) || typeset -A ZSH_HIGHLIGHT_STYLES
 ZSH_HIGHLIGHT_STYLES[path]='fg=#d1ff87'
 
-set +o list_types
+set +o list_types  	# remove '/' dirnames in autocmp

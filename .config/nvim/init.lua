@@ -8,6 +8,7 @@ end
 
 local vim = vim
 local Plug = vim.fn['plug#']
+
 vim.call('plug#begin')
 
 Plug('neovim/nvim-lspconfig')
@@ -22,6 +23,8 @@ Plug ('hrsh7th/nvim-cmp'     )
 Plug ('hrsh7th/cmp-vsnip')
 Plug ('hrsh7th/vim-vsnip')
 
+
+--Plug('neanias/everforest-nvim', { 'branch': 'main' })
 Plug('catppuccin/nvim', { ['as'] = 'catppuccin' }) --colorscheme
 Plug('nvim-lualine/lualine.nvim') --statusline
 
@@ -33,7 +36,7 @@ Plug('nvim-treesitter/nvim-treesitter') --improved syntax
 Plug('mfussenegger/nvim-lint') --async linter
 Plug('nvim-tree/nvim-tree.lua') --file explorer
 
-Plug('windwp/nvim-autopairs') --autopairs 
+Plug('windwp/nvim-autopairs') --autopairs
 Plug('numToStr/Comment.nvim') --easier comments
 Plug('norcalli/nvim-colorizer.lua') --color highlight
 Plug('ibhagwan/fzf-lua') --fuzzy finder and grep
@@ -79,9 +82,6 @@ map('t', '<Esc>', '<C-\\><C-n><CMD>lua require("FTerm").close()<CR>') --preserve
 map('n', 'U', '<C-r>') -- redo
 map("i", "jk", "<Esc>")
 
-map("n", "<S-j>", "}")
-map("n", "<S-k>", "{")
-
 -- repeat previous f, t, F or T movement
 --vim.keymap.set('n', '\'', ';')
 
@@ -94,7 +94,7 @@ local options = {
 	ruler = false, --disable extra numbering
 	showmode = false, --not needed due to lualine
 	showcmd = false,
-	cmdheight = 0,
+	cmdheight = 1,
 	wrap = true, --toggle bound to leader W
 	mouse = "a", --enable mouse
 	clipboard = "unnamedplus", --system clipboard integration
@@ -242,9 +242,9 @@ vim.api.nvim_create_autocmd('ModeChanged', {
 require("plugins.autopairs")
 require("plugins.colorizer")
 --require("plugins.colorscheme")
-vim.cmd.colorscheme "unokai"
+vim.cmd.colorscheme "catppuccin"
 
-vim.api.nvim_set_hl(0, "Normal", { bg = "none" })  -- Inherits terminal BG
+vim.api.nvim_set_hl(0, "Normal", { bg = "#202020" })  -- Inherits terminal B
 vim.api.nvim_set_hl(0, 'CursorLine', { bg = '#001b42' })
 vim.api.nvim_set_hl(0, 'CursorLineNr', { bg = '#001c33', bold = true })
 
@@ -327,11 +327,11 @@ cmp.setup({
 		['<C-f>'] = cmp.mapping.scroll_docs(4),
 		['<C-Space>'] = cmp.mapping.complete(),
 		['<C-e>'] = cmp.mapping.abort(),
-		['<CR>'] = cmp.mapping.confirm({ select = true }), 
+		['<CR>'] = cmp.mapping.confirm({ select = true }),
 	}),
 	sources = cmp.config.sources({
 		{ name = 'nvim_lsp' },
-		{ name = 'vsnip' }, 
+		{ name = 'vsnip' },
 	}, {
 		{ name = 'buffer' },
 	})
@@ -357,6 +357,12 @@ cmp.setup.cmdline(':', {
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
 require('lspconfig').lua_ls.setup {
-	capabilities = capabilities
+	capabilities = capabilities;
+	settings = {
+		Lua = {
+			diagnostics = { globals = {'vim' } }
+		}
+	}
+
 }
 
