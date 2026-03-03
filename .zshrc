@@ -27,10 +27,11 @@ alias l='ls -1 --color'
 alias lr='ls -1t --color'
 alias c='clear'
 alias v='nvim'
-alias vim='nvim'
 
+alias dots='nvim ~/dotfiles'
 alias zmod='nvim ~/.zshrc'
 alias zsrc='source ~/.zshrc'
+alias hist='nvim ~/.zsh_history'
 alias vmod='nvim ~/.config/nvim/init.lua'
 alias kmod='nvim ~/.config/kitty/kitty.conf'
 alias amod='nvim ~/.config/alacritty/alacritty.toml'
@@ -41,6 +42,8 @@ alias osrc='openbox --restart'
 alias rmod='nvim ~/.config/rofi/config.rasi'
 alias bmod='nvim ~/.bashrc'
 alias bsrc='source ~/.bashrc'
+
+alias tablet='systemctl --user start opentabletdriver.service'
 
 alias up='sudo pacman -Syu'
 alias upy='yay -Syu'
@@ -77,7 +80,9 @@ zstyle ':completion:*' squeeze-slashes false # explicit disable to allow /*/ exp
 
 # main opts
 setopt append_history inc_append_history share_history # better history
-# on exit, history appends rather than overwrites; history is appended as soon as cmds executed; history shared across sessions
+# on exit, history appends rather than overwrites; 
+#history is appended as soon as cmds executed; history shared across sessions
+
 setopt auto_menu menu_complete # autocmp first menu match
 setopt autocd # type a dir to cd
 setopt auto_param_slash # when a dir is completed, add a / instead of a trailing space
@@ -153,6 +158,10 @@ autoload -Uz add-zsh-hook # This loads the add-zsh-hook utility (only needs to b
 add-zsh-hook precmd precmd_vcs_info # This correctly registers the function to the hook
 
 ENABLE_CUSTOM_PROMPT_EMOJIS=true
+
+precmd() {
+	print ""
+}
 
 if [[ "$ENABLE_CUSTOM_PROMPT_EMOJIS" = true ]]; then
   # Source the external prompt configuration file.

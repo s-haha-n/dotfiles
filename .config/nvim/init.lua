@@ -137,7 +137,7 @@ for k, v in pairs(options) do
 	vim.opt[k] = v
 end
 
-vim.opt.signcolumn = "yes"  -- always show the sign column for warning/errors
+vim.opt.signcolumn = "auto" -- always show the sign column for warning/errors
 
 vim.diagnostic.config({
 	virtual_text = {
@@ -235,14 +235,23 @@ vim.api.nvim_create_autocmd('ModeChanged', {
 	end,
 })
 
--- #000945
-
--- useful regex delete all lines that do not begin with     "+-"     :g!/^[+-]/d
+-- useful regex delete all lines that do not begin with  "+-"     :g!/^[+-]/d
 
 require("plugins.autopairs")
-require("plugins.colorizer")
+require('colorizer').setup({
+    'css',
+    'scss',
+    'html',
+    'lua',
+    'javascript',
+    'typescript',
+    'c',
+    'cpp',
+})
 --require("plugins.colorscheme")
-vim.cmd.colorscheme "catppuccin"
+vim.cmd.colorscheme "catppuccin" -- all set hl goes after this, color changes
+
+vim.api.nvim_set_hl(0, "SignColumn", { bg = "#000000" })
 
 vim.api.nvim_set_hl(0, "Normal", { bg = "#202020" })  -- Inherits terminal B
 vim.api.nvim_set_hl(0, 'CursorLine', { bg = '#001b42' })
@@ -264,7 +273,7 @@ vim.api.nvim_set_hl(0, "BufferCurrent", { fg = "#12b000",bg = "#1b1919"})
 vim.api.nvim_set_hl(0, "BufferTabpageFill", { bg = "#000000" })  -- Pure black
 
 require("plugins.barbar")
-require("plugins.evil_lualine")
+require("plugins.evil_lualine") --that i altered with simpsons colors
 --require("plugins.lualine")
 require("plugins.nvim-lint")
 

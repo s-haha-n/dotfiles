@@ -180,29 +180,31 @@
         <action name="Execute">
         <command>lxqt-runner</command>
         </action>
-        </keybind>
-      -->
-    <!-- Keybindings for Window tile left or right half-->
-    <keybind key="Super_R">
-      <action name="Execute">
-        <command>rofi -show drun</command>
-      </action>
-    </keybind>
-    <keybind key="W-T">
-      <action name="Execute">
-        <command>kitty</command>
-      </action>
-    </keybind>
-    <chainQuitKey>C-g</chainQuitKey>
-    <keybind key="C-W-Right">
-      <action name="Unmaximize"/>
-      <action name="MoveResizeTo">
-        <width>50%</width>
-        <height>100%</height>
-        <x>-0</x>
-        <y>0</y>
-      </action>
-    </keybind>
+			</keybind>
+		-->
+			<!-- Keybindings for Window tile left or right half-->
+			<!--
+				<keybind key="Super_R">
+				<action name="Execute">
+				<command>rofi -show drun</command>
+				</action>
+				</keybind>
+				<keybind key="W-T">
+				<action name="Execute">
+				<command>kitty</command>
+				</action>
+				</keybind>
+				<chainQuitKey>C-g</chainQuitKey>
+			-->
+				<keybind key="C-W-Right">
+					<action name="Unmaximize"/>
+					<action name="MoveResizeTo">
+						<width>50%</width>
+						<height>100%</height>
+						<x>-0</x>
+						<y>0</y>
+					</action>
+				</keybind>
     <keybind key="C-W-Left">
       <action name="Unmaximize"/>
       <action name="MoveResizeTo">
@@ -703,14 +705,19 @@
       <decor>no</decor>
       <!--<maximized>true</maximized>-->
     </application>
+
     <application class="krita">
+      <decor>no</decor>
       <!-- <decor>no</decor> -->
     </application>
+
     <application class="Blender">
       <position force="yes">
         <monitor>1</monitor>
       </position>
+      <maximized>true</maximized>
     </application>
+
 
     <application name="Alacritty" class="Alacritty">
       <decor>no</decor>
@@ -725,7 +732,6 @@
         <height>100%</height>
       </size>
     </application>
-    o
     <application name="kitty" class="kitty">
       <decor>no</decor>
       <position>
@@ -739,7 +745,6 @@
         <height>100%</height>
       </size>
     </application>
- 
     <!--
               # this is an example with comments through out. use these to make your
               # own rules, but without the comments of course.
