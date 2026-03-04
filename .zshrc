@@ -26,7 +26,7 @@ alias ll='ls -al --color'
 alias l='ls -1 --color'
 alias lr='ls -1t --color'
 alias c='clear'
-alias v='nvim'
+alias nv='nvim'
 
 alias dots='nvim ~/dotfiles'
 alias zmod='nvim ~/.zshrc'
@@ -47,6 +47,8 @@ alias tablet='systemctl --user start opentabletdriver.service'
 
 alias up='sudo pacman -Syu'
 alias upy='yay -Syu'
+
+alias mon='~/x11monitorscripts/monitor.sh'
 
 #switch audio
 alias s1='pactl set-card-profile alsa_card.pci-0000_07_00.1 output:hdmi-stereo'
@@ -157,7 +159,7 @@ autoload -Uz add-zsh-hook # This loads the add-zsh-hook utility (only needs to b
 
 add-zsh-hook precmd precmd_vcs_info # This correctly registers the function to the hook
 
-ENABLE_CUSTOM_PROMPT_EMOJIS=true
+ENABLE_CUSTOM_PROMPT_EMOJIS=false
 
 precmd() {
 	print ""
@@ -171,7 +173,8 @@ else
   # Fallback PROMPT if the custom emoji prompt is disabled.
   # This is your current simple prompt.
   PROMPT='%F{#7DFFFF}%~%f${vcs_info_msg_0_}
-%(?.%F{#e655b5}😺.%F{red}😿) %f'
+%(?.%F{red}▶.%F{#e655b5}▶) %f'
+
 fi
 
 # Installed plugins

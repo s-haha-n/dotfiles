@@ -23,7 +23,6 @@ Plug ('hrsh7th/nvim-cmp'     )
 Plug ('hrsh7th/cmp-vsnip')
 Plug ('hrsh7th/vim-vsnip')
 
-
 --Plug('neanias/everforest-nvim', { 'branch': 'main' })
 Plug('catppuccin/nvim', { ['as'] = 'catppuccin' }) --colorscheme
 Plug('nvim-lualine/lualine.nvim') --statusline
@@ -247,7 +246,10 @@ require('colorizer').setup({
     'typescript',
     'c',
     'cpp',
+    'sh',
+		'text',
 })
+
 --require("plugins.colorscheme")
 vim.cmd.colorscheme "catppuccin" -- all set hl goes after this, color changes
 
@@ -286,23 +288,35 @@ require("plugins.treesitter")
 --require("plugins.which-key")
 --load_theme()
 
--- Built-in LSP basic setup
-local lspconfig = require('lspconfig')
+-- Built-in LSP basic setup - new way ot setup ~2025
 
+-- Python
+vim.lsp.config("pylsp", {})
+-- Lua
+vim.lsp.config("lua_ls", {
+  settings = {
+    Lua = {
+      diagnostics = { globals = { "vim", "nvim" } }
+    }
+  }
+})
+
+-- Enable both servers
+vim.lsp.enable({ "pylsp", "lua_ls" })
+
+--local lspconfig = require('lspconfig') DEPRECATED WAY
 -- Example: TypeScript/JavaScript
 --lspconfig.tsserver.setup {}
-
 -- Example: Python
-lspconfig.pylsp.setup {}
-
+--lspconfig.pylsp.setup {}
 -- Example: Lua
-lspconfig.lua_ls.setup {
-	settings = {
-		Lua = {
-			diagnostics = { globals = {'vim', 'nvim' } }
-		}
-	}
-}
+--lspconfig.lua_ls.setup {
+--	settings = {
+--		Lua = {
+--			diagnostics = { globals = {'vim', 'nvim' } }
+--		}
+--	}
+--}
 
 
 local cmp = require'cmp'
@@ -364,14 +378,25 @@ cmp.setup.cmdline(':', {
 
 -- Set up lspconfig.
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
--- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-require('lspconfig').lua_ls.setup {
-	capabilities = capabilities;
-	settings = {
-		Lua = {
-			diagnostics = { globals = {'vim' } }
-		}
-	}
 
-}
+-- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+vim.lsp.config("lua_ls", {
+  capabilities = capabilities,
+  settings = {
+    Lua = {
+      diagnostics = { globals = { "vim" } }
+    }
+  }
+})
+
+vim.lsp.enable({ "lua_ls" }) -- new way around 2025
+
+--require('lspconfig').lua_ls.setup { DEPRECATED WAY
+--	capabilities = capabilities;
+--	settings = {
+--		Lua = {
+--			diagnostics = { globals = {'vim' } }
+--		}
+--	}
+--}
 
