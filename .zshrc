@@ -38,6 +38,8 @@ alias amod='nvim ~/.config/alacritty/alacritty.toml'
 alias tmod='nvim ~/.config/tmux/tmux.conf'
 alias imod='nvim ~/.config/i3/config'
 alias omod='nvim ~/.config/openbox/rc.xml'
+alias hmod='nvim ~/.config/hypr/hyprland.conf'
+alias wmod='nvim ~/.config/waybar/'
 alias osrc='openbox --restart'
 alias rmod='nvim ~/.config/rofi/config.rasi'
 alias bmod='nvim ~/.bashrc'
@@ -162,7 +164,7 @@ add-zsh-hook precmd precmd_vcs_info # This correctly registers the function to t
 ENABLE_CUSTOM_PROMPT_EMOJIS=false
 
 precmd() {
-	print ""
+	#print ""
 }
 
 if [[ "$ENABLE_CUSTOM_PROMPT_EMOJIS" = true ]]; then
