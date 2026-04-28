@@ -9,6 +9,9 @@ export LD_LIBRARY_PATH=~/.local/share/Steam/steamapps/common/SteamVR/bin/linux64
 
 alias unreal='HOME="$HOME/Documents/unreal_sandbox" "$HOME/Documents/Linux_Unreal_Engine_5.5.4/Engine/Binaries/Linux/UnrealEditor"'
 
+#if [ -z "$TMUX" ] && [ "$TERM" = "xterm-kitty" ]; then
+#    tmux attach-session -t default || tmux new-session -s default
+#fi
 
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
@@ -123,6 +126,13 @@ source <(fzf --zsh) # allow for fzf history widget
 
 # binds
 bindkey -v   # Enable vi mode
+
+# Set timeout to 10ms (removes the lag when hitting Escape)
+export KEYTIMEOUT=1
+
+# Standardize Escape key behavior
+bindkey -M viins '^[' vi-cmd-mode
+
 bindkey -M menuselect '^M' .accept-line # Enter compl exec immediately
 bindkey '^r' fzf-history-widget
 
